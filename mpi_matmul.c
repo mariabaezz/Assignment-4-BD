@@ -4,10 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
+#include <sys/resource.h>
 
 static void *xmalloc(size_t bytes) {
-    void *p = malloc(bytes);
-    if (!p) {
+    void *p = malloc(bytes ? bytes : 1);
+    if (!p && bytes) {
         fprintf(stderr, "Allocation failed for %zu bytes\n", bytes);
         MPI_Abort(MPI_COMM_WORLD, 2);
     }
@@ -15,13 +16,10 @@ static void *xmalloc(size_t bytes) {
 }
 
 static void fill_matrix(int64_t *M, int n, uint64_t seed) {
-    uint64_t x = seed ? seed : 1;
-    size_t total = (size_t)n * (size_t)n;
-    for (size_t i = 0; i < total; ++i) {
-        x ^= x << 13;
-        x ^= x >> 7;
-        x ^= x << 17;
-        M[i] = (int64_t)(x % 10ULL);  // values 0..9
+    uint32_t x = (uint32_t)seed;
+    for (size_t i = 0; i < (size_t)n*n; ++i) {
+        x = 1664525u * x + 1013904223u;
+        M[i] = x % 10u;
     }
 }
 
@@ -58,8 +56,8 @@ int main(int argc, char **argv) {
     }
 
     int n = atoi(argv[1]);
-    uint64_t seed = (argc == 3) ? strtoull(argv[2], NULL, 10) : 12345ULL;
-    if (n <= 0) {
+    uint64_t seed = (argc == 3) ? strtoull(argv[2], NULL, 10) : 42ULL;
+    if (n <= 0 || n > 4000) {
         if (rank == 0) fprintf(stderr, "n must be > 0\n");
         MPI_Finalize();
         return 1;
@@ -90,7 +88,7 @@ int main(int argc, char **argv) {
         A = xmalloc((size_t)n * (size_t)n * sizeof(int64_t));
         C = xmalloc((size_t)n * (size_t)n * sizeof(int64_t));
         fill_matrix(A, n, seed);
-        fill_matrix(B, n, seed + 1);
+        fill_matrix(B, n, 4242u);
     }
     double setup_local = MPI_Wtime() - setup_start;
 
@@ -118,6 +116,7 @@ int main(int argc, char **argv) {
                 0, MPI_COMM_WORLD);
     double gather_local = MPI_Wtime() - gather_start;
 
+    MPI_Barrier(MPI_COMM_WORLD);
     double total_local = MPI_Wtime() - total_start;
 
     double setup_max, bcast_max, scatter_max, compute_max, gather_max, total_max;
@@ -128,13 +127,32 @@ int main(int argc, char **argv) {
     MPI_Reduce(&gather_local, &gather_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     MPI_Reduce(&total_local, &total_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
+    struct rusage ru;
+    getrusage(RUSAGE_SELF, &ru);
+    unsigned long long rss = (unsigned long long)ru.ru_maxrss;
+#ifndef __APPLE__
+    rss *= 1024;
+#endif
+    unsigned long long rss_max, rss_sum;
+    MPI_Reduce(&rss, &rss_max, 1, MPI_UNSIGNED_LONG_LONG, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&rss, &rss_sum, 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    int valid = 1;
+    if (rank == 0 && n <= 16) {
+        for (int i=0;i<n;i++) for(int j=0;j<n;j++) {
+            int64_t expected=0;
+            for(int k=0;k<n;k++) expected += A[(size_t)i*n+k]*B[(size_t)k*n+j];
+            if(C[(size_t)i*n+j]!=expected) valid=0;
+        }
+    }
+    MPI_Bcast(&valid, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if (!valid) MPI_Abort(MPI_COMM_WORLD, 3);
     if (rank == 0) {
         uint64_t sum = checksum(C, (size_t)n * (size_t)n);
         double comm = bcast_max + scatter_max + gather_max;
         printf("n=%d workers=%d seed=%" PRIu64
-               " setup=%.9f bcast=%.9f scatter=%.9f compute=%.9f gather=%.9f comm=%.9f total=%.9f checksum=%" PRIu64 "\n",
+               " setup=%.9f bcast=%.9f scatter=%.9f compute=%.9f gather=%.9f comm=%.9f total=%.9f checksum=%" PRIu64 " rss_max_bytes=%llu rss_sum_bytes=%llu\n",
                n, world, seed, setup_max, bcast_max, scatter_max,
-               compute_max, gather_max, comm, total_max, sum);
+               compute_max, gather_max, comm, total_max, sum, rss_max, rss_sum);
     }
 
     free(A);
