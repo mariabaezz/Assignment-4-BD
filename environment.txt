@@ -1,0 +1,34 @@
+=== Hardware ===
+Apple M4
+hw.physicalcpu: 10
+hw.logicalcpu: 10
+hw.memsize: 17179869184
+
+=== Operating System ===
+ProductName:		macOS
+ProductVersion:		26.3.1
+ProductVersionExtra:	(a)
+BuildVersion:		25D771280a
+arm64
+
+=== Compiler ===
+Apple clang version 21.0.0 (clang-2100.1.1.101)
+Target: arm64-apple-darwin25.3.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+
+=== MPI ===
+mpirun (Open MPI) 5.0.11
+
+Report bugs to https://www.open-mpi.org/community/help/
+
+clang -I/opt/homebrew/Cellar/open-mpi/5.0.11/include -L/opt/homebrew/Cellar/open-mpi/5.0.11/lib -lmpi
+
+=== OpenMP ===
+libomp 23.1.5
+
+=== Python ===
+Python 3.13.0
+
+=== Matplotlib ===
+3.10.8
