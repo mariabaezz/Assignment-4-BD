@@ -5,9 +5,9 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-ROOT = Path(__file__).resolve().parent
-INPUT = ROOT / "results_final.csv"
-OUTPUT = ROOT / "summary_final.csv"
+ROOT = Path(__file__).resolve().parents[1]
+INPUT = ROOT / "results" / "results_final.csv"
+OUTPUT = ROOT / "results" / "summary_final.csv"
 FIGURES = ROOT / "figures"
 
 FIGURES.mkdir(exist_ok=True)

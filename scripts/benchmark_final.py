@@ -1,13 +1,13 @@
 import csv, random, subprocess, time, statistics, re, os
 from pathlib import Path
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parents[1]
 os.chdir(ROOT)
 SIZES=[500,1000,1500,2000,3000]
 WORKERS=[1,2,4,8,10]
 CONFIGS=[('seq',1)]+[(m,p) for m in ('omp','mpi') for p in WORKERS]
 FIELDS=['n','method','workers','repetition','compute_s','operation_s','end_to_end_s','rss_max_bytes','rss_sum_bytes','checksum','setup_s','bcast_s','scatter_s','gather_s','comm_s','status']
 def run(n,m,p,rep):
-    cmd=['mpirun','-np',str(p),'./mpi_matmul',str(n)] if m=='mpi' else ['./run_parallel',m,str(n),str(p)]
+    cmd=['mpirun','-np',str(p),'./bin/mpi_matmul',str(n)] if m=='mpi' else ['./bin/run_parallel',m,str(n),str(p)]
     t=time.perf_counter()
     r=subprocess.run(cmd,capture_output=True,text=True,timeout=120,check=True)
     elapsed=time.perf_counter()-t
@@ -20,9 +20,9 @@ if __name__=='__main__':
     for n in (1,3,7,11):
         checks={run(n,m,p,0)['checksum'] for m,p in [('seq',1),('omp',4),('mpi',4)]}
         assert len(checks)==1,(n,checks)
-    print('Small element-wise reference tests passed',flush=True)
+    print('Small matrix checksum tests passed',flush=True)
     rng=random.Random(42)
-    with open('results_final.csv','w',newline='') as f:
+    with open('results/results_final.csv','w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=FIELDS);w.writeheader()
         for n in SIZES:
             configs=CONFIGS.copy();rng.shuffle(configs)

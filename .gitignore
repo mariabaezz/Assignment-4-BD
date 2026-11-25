@@ -1,7 +1,24 @@
+# Compiled binaries
+bin/
 mpi_matmul
+run_parallel
 seq_matmul
 omp_matmul
 *.o
-.DS_Store
+
+# Python
 __pycache__/
-.venv/run_parallel
+.venv/
+*.pyc
+
+# macOS
+.DS_Store
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

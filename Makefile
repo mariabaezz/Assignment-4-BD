@@ -1,11 +1,28 @@
-MPICC ?= mpicc
+MPICC = mpicc
 CC = clang
-OMP_PREFIX ?= $(shell brew --prefix libomp 2>/dev/null)
+
 CFLAGS = -O3 -std=c11 -Wall -Wextra
-all: mpi_matmul run_parallel
-mpi_matmul: mpi_matmul.c
+
+OMP_PREFIX = /opt/homebrew/opt/libomp
+
+OMP_FLAGS = -Xpreprocessor -fopenmp \
+            -I$(OMP_PREFIX)/include
+
+OMP_LIBS = -L$(OMP_PREFIX)/lib -lomp \
+           -Wl,-rpath,$(OMP_PREFIX)/lib
+
+.PHONY: all clean
+
+all: bin/mpi_matmul bin/run_parallel
+
+bin:
+	mkdir -p bin
+
+bin/mpi_matmul: src/mpi_matmul.c | bin
 	$(MPICC) $(CFLAGS) $< -o $@
-run_parallel: matrix_parallel.c
-	$(CC) $(CFLAGS) -Xpreprocessor -fopenmp -I$(OMP_PREFIX)/include $< -L$(OMP_PREFIX)/lib -lomp -Wl,-rpath,$(OMP_PREFIX)/lib -o $@
+
+bin/run_parallel: src/matrix_parallel.c | bin
+	$(CC) $(CFLAGS) $(OMP_FLAGS) $< $(OMP_LIBS) -o $@
+
 clean:
-	rm -f mpi_matmul run_parallel
+	rm -f bin/mpi_matmul bin/run_parallel
