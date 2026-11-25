@@ -1,0 +1,7 @@
+mpi_matmul
+seq_matmul
+omp_matmul
+*.o
+.DS_Store
+__pycache__/
+.venv/
