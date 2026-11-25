@@ -54,6 +54,7 @@ Each process stores a complete copy of matrix B. Consequently, the implementatio
 
 ## 4. Repository Structure
 
+
 ```text
 Assignment-4-BD/
 ├── src/
@@ -61,28 +62,50 @@ Assignment-4-BD/
 │   └── mpi_matmul.c
 ├── scripts/
 │   ├── benchmark_final.py
+│   ├── benchmark_diagnostics.py
 │   └── plots.py
 ├── tests/
-│   └── test_correctness.py
+│   ├── test_correctness.py
+│   ├── test_elementwise.py
+│   └── verify_checksum.py
 ├── results/
 │   ├── results_final.csv
-│   └── summary_final.csv
-├── preliminary/
-│   ├── analyze.py
-│   ├── run_benchmarks.sh
-│   ├── results_mpi.csv
-│   └── summary_mpi.csv
+│   ├── summary_final.csv
+│   ├── correctness_tests.txt
+│   ├── results_diagnostics.csv
+│   ├── results_extension.csv
+│   └── diagnostics_summary.txt
 ├── figures/
+├── preliminary/
 ├── report/
-├── Makefile
+│   ├── main.tex
+│   └── Assignment04_BaezMarrero_Report.pdf
+├── environment.txt
 ├── requirements.txt
+├── Makefile
 ├── .gitignore
 └── README.md
 ```
 
-The `preliminary/` directory preserves the initial exploratory MPI experiments. These measurements used a different input generator and are not included in the final comparative analysis.
+The `bin/` directory contains locally compiled executables
+and is excluded from version control.
 
-Compiled executables are generated in `bin/` and excluded from version control.
+The independent checksum verification for n = 4000
+can be reproduced using:
+
+```bash
+python3 tests/verify_checksum.py 4000
+```
+
+Expected output:
+
+```text
+n=4000,checksum=1296165693892
+```
+
+This verification uses an O(n²) identity based on column
+sums of A and row sums of B, without computing the complete
+matrix product.
 
 ## 5. Experimental Environment
 
@@ -443,3 +466,13 @@ https://github.com/mariabaezz/Assignment-4-BD
 
 This project is part of the individual assignments for the Big Data course at Universidad de Las Palmas de Gran Canaria.
 
+## Additional Reproducibility Materials
+
+- `tests/test_elementwise.py`: exact element-wise validation.
+- `tests/verify_checksum.py`: independent O(n²) checksum verification.
+- `scripts/benchmark_diagnostics.py`: supplementary experiments.
+- `results/results_diagnostics.csv`: MPI synchronization measurements.
+- `results/results_extension.csv`: n=4000 measurements.
+- `results/diagnostics_summary.txt`: supplementary statistical summary.
+- `report/main.tex`: LaTeX report source.
+- `report/Assignment04_BaezMarrero_Report.pdf`: final report.
