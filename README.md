@@ -175,28 +175,45 @@ The programs report execution times, checksum and peak resident memory measureme
 
 ## 8. Correctness Validation
 
-Correctness is assessed through an independent Python reference implementation using the same deterministic input generator.
-
-Run the validation suite:
+Correctness was evaluated using two independent validation suites.
 
 ```bash
 python3 tests/test_correctness.py
+python3 tests/test_elementwise.py
 ```
 
-The suite covers:
+### Checksum validation
 
-- Seven matrix sizes: 1, 2, 3, 7, 11, 32 and 100.
-- Sequential, OpenMP and MPI execution.
-- Multiple thread and process configurations.
+The first suite performs 77 checksum comparisons against an independent Python reference implementation.
+
+It covers seven matrix sizes and eleven sequential, OpenMP and MPI configurations.
+
+### Element-wise validation
+
+The second suite performs 121 exact element-wise comparisons across eleven test cases and eleven execution configurations.
+
+The test cases include:
+
+- Multiplication by an identity matrix on both sides.
+- Multiplication by a zero matrix on both sides.
+- A known 2 × 2 matrix multiplication.
+- Deterministically generated matrices.
 - Uneven row partitioning.
 - Configurations with more MPI processes than matrix rows.
-- Comparison against independently calculated reference checksums.
 
-The suite comprises 77 checksum comparisons.
+The independent reference uses a conventional i-j-k implementation in Python.
 
-Additionally, all 275 recorded benchmark measurements produce matching checksums for each matrix size.
+All 121 element-wise tests passed successfully. The validation output is available in `results/correctness_tests.txt`.
 
-Checksum agreement provides evidence of consistency but does not constitute a complete element-wise correctness proof.
+Additionally, all 275 benchmark measurements produced matching checksums across implementations for each matrix size.
+
+The validation mode was added after the performance measurements without changing the multiplication kernels or normal input generation. Subsequent executions confirmed that the expected benchmark checksum remained unchanged.
+
+### Numerical safety
+
+All input elements are integers between 0 and 9. For n = 3000, the theoretical maximum value of an output element is 243,000, while the maximum possible checksum is 2,187,000,000,000.
+
+Both values are within the representable range of 64-bit integers. Therefore, integer overflow is not expected under the tested experimental conditions, and exact equality is used instead of floating-point tolerances.
 
 ## 9. Benchmarking Methodology
 
@@ -234,6 +251,16 @@ python3 scripts/plots.py
 ```
 
 This command generates the statistical summary and all performance figures from the recorded measurements.
+
+### Resource limits
+
+Each execution was subject to a timeout of 120 seconds.
+
+The largest attempted and successfully completed matrix size was n = 3000. All 275 recorded benchmark executions completed successfully.
+
+The machine provides 16 GiB of RAM. The largest observed sum of individual process peak RSS values was approximately 1.15 GB.
+
+An explicit memory cutoff was not established before the experiments, and the maximum feasible matrix size of the hardware was not investigated. Therefore, n = 3000 represents the largest tested size rather than the maximum hardware capacity.
 
 ## 10. Performance Metrics
 
@@ -331,16 +358,21 @@ All figures are available in PDF and PNG formats.
 
 ## 13. Limitations
 
-- All MPI processes execute on a single physical machine.
-- Inter-machine network performance is not evaluated.
-- Distributed memory capacity across multiple physical nodes is not evaluated.
-- Communication timings include local transfer and potential synchronisation overhead.
-- Actual network transfer volumes and hardware performance counters are not measured.
+- All experiments were conducted on a single physical Apple M4 machine.
+- MPI results characterise local multi-process execution rather than inter-machine network performance.
+- Distributed memory capacity across multiple physical nodes was not investigated.
+- Communication measurements include potential synchronisation delays and local data movement.
+- Individual MPI phase maxima are not necessarily additive.
+- Actual physical data-transfer volumes were not measured.
+- Aggregate process peak RSS is not equivalent to simultaneous physical memory consumption.
+- Hardware performance counters were not collected.
 - Compiler optimisation differences may affect comparisons between sequential and OpenMP kernels.
-- CPU affinity is not explicitly controlled by the benchmark script.
+- CPU affinity was not explicitly controlled by the benchmark script.
+- The heterogeneous CPU architecture may influence scalability.
 - Five repetitions provide a limited sample of runtime variability.
+- No explicit memory cutoff was established before benchmarking.
 - Matrix sizes above 3000 were not tested.
-- Correctness validation is based on reference checksum comparisons rather than complete element-wise comparisons of every implementation.
+- Full element-wise validation was performed on small matrices, while larger benchmark configurations were validated through checksum agreement.
 
 ## 14. References
 
@@ -355,3 +387,4 @@ All figures are available in PDF and PNG formats.
 https://github.com/mariabaezz/Assignment-4-BD
 
 This project is part of the individual assignments for the Big Data course at Universidad de Las Palmas de Gran Canaria.
+

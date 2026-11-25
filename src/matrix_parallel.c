@@ -76,12 +76,7 @@ static unsigned long long checksum(const long long *C, int n) {
     return s;
 }
 
-static int matrices_equal(const long long *X, const long long *Y, int n) {
-    for (size_t i = 0; i < (size_t)n * (size_t)n; ++i) {
-        if (X[i] != Y[i]) return 0;
-    }
-    return 1;
-}
+
 
 int main(int argc, char **argv) {
     if (argc != 4 && argc != 5) {
