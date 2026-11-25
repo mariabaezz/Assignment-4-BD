@@ -84,7 +84,7 @@ static int matrices_equal(const long long *X, const long long *Y, int n) {
 }
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 4 && argc != 5) {
         fprintf(stderr, "Usage: %s <seq|omp> <n> <threads>\n", argv[0]);
         return 1;
     }
@@ -110,6 +110,29 @@ int main(int argc, char **argv) {
 
     fill_matrix(A, n, 42u);
     fill_matrix(B, n, 4242u);
+
+    const char *test = argc == 5 ? argv[4] : NULL;
+
+    if (test) {
+        if (n > 16) return 4;
+
+        if (strcmp(test, "right_identity") == 0) {
+            memset(B, 0, (size_t)n*n*sizeof(*B));
+            for (int i=0; i<n; i++) B[i*n+i] = 1;
+        } else if (strcmp(test, "left_identity") == 0) {
+            memset(A, 0, (size_t)n*n*sizeof(*A));
+            for (int i=0; i<n; i++) A[i*n+i] = 1;
+        } else if (strcmp(test, "right_zero") == 0) {
+            memset(B, 0, (size_t)n*n*sizeof(*B));
+        } else if (strcmp(test, "left_zero") == 0) {
+            memset(A, 0, (size_t)n*n*sizeof(*A));
+        } else if (strcmp(test, "known") == 0 && n == 2) {
+            A[0]=1; A[1]=2; A[2]=3; A[3]=4;
+            B[0]=5; B[1]=6; B[2]=7; B[3]=8;
+        } else if (strcmp(test, "random") != 0) {
+            return 4;
+        }
+    }
 
     double t0 = now_seconds();
 
@@ -140,6 +163,13 @@ int main(int argc, char **argv) {
     }
     printf("method=%s,n=%d,threads=%d,time=%.9f,checksum=%llu,rss_max_bytes=%llu\n",
            method, n, threads, t1 - t0, checksum(C, n), rss);
+
+    if (test) {
+        printf("RESULT=");
+        for (size_t i=0; i<(size_t)n*n; i++)
+            printf("%s%lld", i ? "," : "", C[i]);
+        printf("\n");
+    }
 
     free(A);
     free(B);

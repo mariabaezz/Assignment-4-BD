@@ -49,19 +49,24 @@ int main(int argc, char **argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world);
 
-    if (argc < 2 || argc > 3) {
+    if (argc < 2 || argc > 4) {
         if (rank == 0) fprintf(stderr, "Usage: %s <n> [seed]\n", argv[0]);
         MPI_Finalize();
         return 1;
     }
 
     int n = atoi(argv[1]);
-    uint64_t seed = (argc == 3) ? strtoull(argv[2], NULL, 10) : 42ULL;
+    uint64_t seed = (argc >= 3) ? strtoull(argv[2], NULL, 10) : 42ULL;
     if (n <= 0 || n > 4000) {
         if (rank == 0) fprintf(stderr, "n must be > 0\n");
         MPI_Finalize();
         return 1;
     }
+
+    const char *test = argc == 4 ? argv[3] : NULL;
+
+    if (test && n > 16)
+        MPI_Abort(MPI_COMM_WORLD, 4);
 
     int base = n / world;
     int rem = n % world;
@@ -89,6 +94,25 @@ int main(int argc, char **argv) {
         C = xmalloc((size_t)n * (size_t)n * sizeof(int64_t));
         fill_matrix(A, n, seed);
         fill_matrix(B, n, 4242u);
+
+        if (test) {
+            if (strcmp(test, "right_identity") == 0) {
+                memset(B, 0, (size_t)n*n*sizeof(*B));
+                for (int i=0; i<n; i++) B[i*n+i] = 1;
+            } else if (strcmp(test, "left_identity") == 0) {
+                memset(A, 0, (size_t)n*n*sizeof(*A));
+                for (int i=0; i<n; i++) A[i*n+i] = 1;
+            } else if (strcmp(test, "right_zero") == 0) {
+                memset(B, 0, (size_t)n*n*sizeof(*B));
+            } else if (strcmp(test, "left_zero") == 0) {
+                memset(A, 0, (size_t)n*n*sizeof(*A));
+            } else if (strcmp(test, "known") == 0 && n == 2) {
+                A[0]=1; A[1]=2; A[2]=3; A[3]=4;
+                B[0]=5; B[1]=6; B[2]=7; B[3]=8;
+            } else if (strcmp(test, "random") != 0) {
+                MPI_Abort(MPI_COMM_WORLD, 4);
+            }
+        }
     }
     double setup_local = MPI_Wtime() - setup_start;
 
@@ -153,6 +177,13 @@ int main(int argc, char **argv) {
                " setup=%.9f bcast=%.9f scatter=%.9f compute=%.9f gather=%.9f comm=%.9f total=%.9f checksum=%" PRIu64 " rss_max_bytes=%llu rss_sum_bytes=%llu\n",
                n, world, seed, setup_max, bcast_max, scatter_max,
                compute_max, gather_max, comm, total_max, sum, rss_max, rss_sum);
+    }
+
+    if (rank == 0 && test) {
+        printf("RESULT=");
+        for (size_t i=0; i<(size_t)n*n; i++)
+            printf("%s%" PRId64, i ? "," : "", C[i]);
+        printf("\n");
     }
 
     free(A);

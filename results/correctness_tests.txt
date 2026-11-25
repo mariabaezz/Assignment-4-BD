@@ -1,0 +1,123 @@
+PASS | known            | n= 2 | seq | workers= 1
+PASS | known            | n= 2 | omp | workers= 1
+PASS | known            | n= 2 | omp | workers= 2
+PASS | known            | n= 2 | omp | workers= 4
+PASS | known            | n= 2 | omp | workers= 8
+PASS | known            | n= 2 | omp | workers=10
+PASS | known            | n= 2 | mpi | workers= 1
+PASS | known            | n= 2 | mpi | workers= 2
+PASS | known            | n= 2 | mpi | workers= 4
+PASS | known            | n= 2 | mpi | workers= 8
+PASS | known            | n= 2 | mpi | workers=10
+PASS | right_identity   | n= 3 | seq | workers= 1
+PASS | right_identity   | n= 3 | omp | workers= 1
+PASS | right_identity   | n= 3 | omp | workers= 2
+PASS | right_identity   | n= 3 | omp | workers= 4
+PASS | right_identity   | n= 3 | omp | workers= 8
+PASS | right_identity   | n= 3 | omp | workers=10
+PASS | right_identity   | n= 3 | mpi | workers= 1
+PASS | right_identity   | n= 3 | mpi | workers= 2
+PASS | right_identity   | n= 3 | mpi | workers= 4
+PASS | right_identity   | n= 3 | mpi | workers= 8
+PASS | right_identity   | n= 3 | mpi | workers=10
+PASS | left_identity    | n= 3 | seq | workers= 1
+PASS | left_identity    | n= 3 | omp | workers= 1
+PASS | left_identity    | n= 3 | omp | workers= 2
+PASS | left_identity    | n= 3 | omp | workers= 4
+PASS | left_identity    | n= 3 | omp | workers= 8
+PASS | left_identity    | n= 3 | omp | workers=10
+PASS | left_identity    | n= 3 | mpi | workers= 1
+PASS | left_identity    | n= 3 | mpi | workers= 2
+PASS | left_identity    | n= 3 | mpi | workers= 4
+PASS | left_identity    | n= 3 | mpi | workers= 8
+PASS | left_identity    | n= 3 | mpi | workers=10
+PASS | right_zero       | n= 3 | seq | workers= 1
+PASS | right_zero       | n= 3 | omp | workers= 1
+PASS | right_zero       | n= 3 | omp | workers= 2
+PASS | right_zero       | n= 3 | omp | workers= 4
+PASS | right_zero       | n= 3 | omp | workers= 8
+PASS | right_zero       | n= 3 | omp | workers=10
+PASS | right_zero       | n= 3 | mpi | workers= 1
+PASS | right_zero       | n= 3 | mpi | workers= 2
+PASS | right_zero       | n= 3 | mpi | workers= 4
+PASS | right_zero       | n= 3 | mpi | workers= 8
+PASS | right_zero       | n= 3 | mpi | workers=10
+PASS | left_zero        | n= 3 | seq | workers= 1
+PASS | left_zero        | n= 3 | omp | workers= 1
+PASS | left_zero        | n= 3 | omp | workers= 2
+PASS | left_zero        | n= 3 | omp | workers= 4
+PASS | left_zero        | n= 3 | omp | workers= 8
+PASS | left_zero        | n= 3 | omp | workers=10
+PASS | left_zero        | n= 3 | mpi | workers= 1
+PASS | left_zero        | n= 3 | mpi | workers= 2
+PASS | left_zero        | n= 3 | mpi | workers= 4
+PASS | left_zero        | n= 3 | mpi | workers= 8
+PASS | left_zero        | n= 3 | mpi | workers=10
+PASS | random           | n= 1 | seq | workers= 1
+PASS | random           | n= 1 | omp | workers= 1
+PASS | random           | n= 1 | omp | workers= 2
+PASS | random           | n= 1 | omp | workers= 4
+PASS | random           | n= 1 | omp | workers= 8
+PASS | random           | n= 1 | omp | workers=10
+PASS | random           | n= 1 | mpi | workers= 1
+PASS | random           | n= 1 | mpi | workers= 2
+PASS | random           | n= 1 | mpi | workers= 4
+PASS | random           | n= 1 | mpi | workers= 8
+PASS | random           | n= 1 | mpi | workers=10
+PASS | random           | n= 2 | seq | workers= 1
+PASS | random           | n= 2 | omp | workers= 1
+PASS | random           | n= 2 | omp | workers= 2
+PASS | random           | n= 2 | omp | workers= 4
+PASS | random           | n= 2 | omp | workers= 8
+PASS | random           | n= 2 | omp | workers=10
+PASS | random           | n= 2 | mpi | workers= 1
+PASS | random           | n= 2 | mpi | workers= 2
+PASS | random           | n= 2 | mpi | workers= 4
+PASS | random           | n= 2 | mpi | workers= 8
+PASS | random           | n= 2 | mpi | workers=10
+PASS | random           | n= 3 | seq | workers= 1
+PASS | random           | n= 3 | omp | workers= 1
+PASS | random           | n= 3 | omp | workers= 2
+PASS | random           | n= 3 | omp | workers= 4
+PASS | random           | n= 3 | omp | workers= 8
+PASS | random           | n= 3 | omp | workers=10
+PASS | random           | n= 3 | mpi | workers= 1
+PASS | random           | n= 3 | mpi | workers= 2
+PASS | random           | n= 3 | mpi | workers= 4
+PASS | random           | n= 3 | mpi | workers= 8
+PASS | random           | n= 3 | mpi | workers=10
+PASS | random           | n= 7 | seq | workers= 1
+PASS | random           | n= 7 | omp | workers= 1
+PASS | random           | n= 7 | omp | workers= 2
+PASS | random           | n= 7 | omp | workers= 4
+PASS | random           | n= 7 | omp | workers= 8
+PASS | random           | n= 7 | omp | workers=10
+PASS | random           | n= 7 | mpi | workers= 1
+PASS | random           | n= 7 | mpi | workers= 2
+PASS | random           | n= 7 | mpi | workers= 4
+PASS | random           | n= 7 | mpi | workers= 8
+PASS | random           | n= 7 | mpi | workers=10
+PASS | random           | n=11 | seq | workers= 1
+PASS | random           | n=11 | omp | workers= 1
+PASS | random           | n=11 | omp | workers= 2
+PASS | random           | n=11 | omp | workers= 4
+PASS | random           | n=11 | omp | workers= 8
+PASS | random           | n=11 | omp | workers=10
+PASS | random           | n=11 | mpi | workers= 1
+PASS | random           | n=11 | mpi | workers= 2
+PASS | random           | n=11 | mpi | workers= 4
+PASS | random           | n=11 | mpi | workers= 8
+PASS | random           | n=11 | mpi | workers=10
+PASS | random           | n=16 | seq | workers= 1
+PASS | random           | n=16 | omp | workers= 1
+PASS | random           | n=16 | omp | workers= 2
+PASS | random           | n=16 | omp | workers= 4
+PASS | random           | n=16 | omp | workers= 8
+PASS | random           | n=16 | omp | workers=10
+PASS | random           | n=16 | mpi | workers= 1
+PASS | random           | n=16 | mpi | workers= 2
+PASS | random           | n=16 | mpi | workers= 4
+PASS | random           | n=16 | mpi | workers= 8
+PASS | random           | n=16 | mpi | workers=10
+
+All 121 element-wise tests passed.
