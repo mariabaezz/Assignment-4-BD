@@ -58,12 +58,15 @@ int main(int argc, char **argv) {
     int n = atoi(argv[1]);
     uint64_t seed = (argc >= 3) ? strtoull(argv[2], NULL, 10) : 42ULL;
     if (n <= 0 || n > 4000) {
-        if (rank == 0) fprintf(stderr, "n must be > 0\n");
+        if (rank == 0)
+            fprintf(stderr, "n must be between 1 and 4000\n");
         MPI_Finalize();
         return 1;
     }
 
     const char *test = argc == 4 ? argv[3] : NULL;
+    const char *diag_env = getenv("MPI_DIAGNOSTICS");
+    int diagnostics = diag_env && strcmp(diag_env, "1") == 0;
 
     if (test && n > 16)
         MPI_Abort(MPI_COMM_WORLD, 4);
@@ -134,6 +137,14 @@ int main(int argc, char **argv) {
     multiply_rows_ikj(A_local, B, C_local, local_rows, n);
     double compute_local = MPI_Wtime() - compute_start;
 
+    double wait_local = 0.0;
+
+    if (diagnostics) {
+        double wait_start = MPI_Wtime();
+        MPI_Barrier(MPI_COMM_WORLD);
+        wait_local = MPI_Wtime() - wait_start;
+    }
+
     double gather_start = MPI_Wtime();
     MPI_Gatherv(C_local, local_rows * n, MPI_INT64_T,
                 C, sendcounts, displs, MPI_INT64_T,
@@ -151,6 +162,20 @@ int main(int argc, char **argv) {
     MPI_Reduce(&gather_local, &gather_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     MPI_Reduce(&total_local, &total_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
+    double compute_min = 0.0;
+    double compute_sum = 0.0;
+    double wait_max = 0.0;
+
+    if (diagnostics) {
+        MPI_Reduce(&compute_local, &compute_min, 1,
+                MPI_DOUBLE, MPI_MIN, 0, MPI_COMM_WORLD);
+
+        MPI_Reduce(&compute_local, &compute_sum, 1,
+                MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+        MPI_Reduce(&wait_local, &wait_max, 1,
+                MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    }
     struct rusage ru;
     getrusage(RUSAGE_SELF, &ru);
     unsigned long long rss = (unsigned long long)ru.ru_maxrss;
@@ -179,6 +204,19 @@ int main(int argc, char **argv) {
                compute_max, gather_max, comm, total_max, sum, rss_max, rss_sum);
     }
 
+    if (rank == 0 && diagnostics) {
+        printf("DIAGNOSTICS compute_min=%.9f compute_mean=%.9f "
+            "compute_max=%.9f wait_max=%.9f "
+            "gather_sync=%.9f imbalance_ratio=%.9f\n",
+            compute_min,
+            compute_sum / world,
+            compute_max,
+            wait_max,
+            gather_max,
+            compute_sum > 0.0
+                ? compute_max / (compute_sum / world)
+                : 0.0);
+    }
     if (rank == 0 && test) {
         printf("RESULT=");
         for (size_t i=0; i<(size_t)n*n; i++)

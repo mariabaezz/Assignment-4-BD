@@ -374,7 +374,62 @@ All figures are available in PDF and PNG formats.
 - Matrix sizes above 3000 were not tested.
 - Full element-wise validation was performed on small matrices, while larger benchmark configurations were validated through checksum agreement.
 
-## 14. References
+## 14. Supplementary Experiments
+
+Two supplementary experiments were conducted to investigate MPI computation imbalance, synchronization costs and performance at a larger matrix dimension.
+
+Before these experiments, the following resource budgets were established:
+
+- Maximum runtime: 120 seconds per execution.
+- Memory acceptance budget: 4 GiB, evaluated using summed process peak RSS.
+- Maximum matrix dimension: 4000.
+- One warm-up and five measured repetitions per configuration.
+
+The memory budget is an experimental acceptance criterion, not an operating-system-enforced memory limit.
+
+### MPI diagnostics
+
+The optional diagnostic mode can be enabled using:
+
+```bash
+MPI_DIAGNOSTICS=1 mpirun -np 8 ./bin/mpi_matmul 3000
+```
+
+The diagnostic mode introduces a barrier before result collection and reports minimum, mean and maximum computation durations, maximum barrier waiting time, synchronized gather duration and the computation imbalance ratio.
+
+The supplementary experiment compares synchronized and unsynchronized execution across five MPI process configurations.
+
+The results indicate that the original gather measurements include waiting associated with differences in process arrival times. They also reveal that computation time is the principal scaling limitation for larger workloads.
+
+### Size extension
+
+An additional experiment evaluates six selected configurations at n = 4000.
+
+All configurations completed successfully within the declared resource budgets.
+
+MPI with eight processes achieved the lowest median end-to-end execution time, approximately 6.834 seconds.
+
+### Reproduction
+
+```bash
+python3 scripts/benchmark_diagnostics.py
+```
+
+The supplementary results are stored in:
+
+- `results/results_diagnostics.csv`
+- `results/results_extension.csv`
+- `results/diagnostics_summary.txt`
+
+The supplementary experiments contain 80 measured executions, bringing the total to 355.
+
+The original 275 benchmark measurements and 12 performance figures remain unchanged.
+
+The MPI implementation accepts matrix dimensions between 1 and 4000. The Makefile targets Apple Silicon macOS with Homebrew-installed dependencies.
+
+Full element-wise correctness validation is available through `tests/test_elementwise.py`.
+
+## 15. References
 
 - MPI Forum. MPI Standard. https://www.mpi-forum.org/docs/
 - Open MPI Documentation. https://docs.open-mpi.org/
@@ -382,7 +437,7 @@ All figures are available in PDF and PNG formats.
 - Python Documentation. https://docs.python.org/3/
 - Matplotlib Documentation. https://matplotlib.org/stable/
 
-## 15. Repository
+## 16. Repository
 
 https://github.com/mariabaezz/Assignment-4-BD
 

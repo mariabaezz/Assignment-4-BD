@@ -1,0 +1,258 @@
+Runtime budget: 120 seconds
+Memory budget: 4 GiB
+Maximum matrix dimension: 4000
+n=3000 mpi p=8 diag=True rep=0 status=ok time=3.5124154160148464
+n=3000 mpi p=2 diag=True rep=0 status=ok time=4.282345416984754
+n=3000 mpi p=2 diag=False rep=0 status=ok time=4.177375125000253
+n=3000 mpi p=10 diag=False rep=0 status=ok time=3.0703006669937167
+n=3000 mpi p=4 diag=True rep=0 status=ok time=3.2688166669977363
+n=3000 mpi p=8 diag=False rep=0 status=ok time=2.9775699590099975
+n=3000 mpi p=10 diag=True rep=0 status=ok time=2.9923563330085017
+n=3000 mpi p=4 diag=False rep=0 status=ok time=3.2661230000085197
+n=3000 mpi p=1 diag=False rep=0 status=ok time=7.900611374992877
+n=3000 mpi p=1 diag=True rep=0 status=ok time=7.908597958012251
+n=3000 mpi p=2 diag=True rep=1 status=ok time=4.086165833985433
+n=3000 mpi p=4 diag=True rep=1 status=ok time=3.2810477080056444
+n=3000 mpi p=2 diag=False rep=1 status=ok time=4.158480834012153
+n=3000 mpi p=4 diag=False rep=1 status=ok time=3.2851365829992574
+n=3000 mpi p=1 diag=True rep=1 status=ok time=7.994568124995567
+n=3000 mpi p=10 diag=False rep=1 status=ok time=3.3569747090223245
+n=3000 mpi p=8 diag=True rep=1 status=ok time=3.157069207984023
+n=3000 mpi p=1 diag=False rep=1 status=ok time=8.283734541997546
+n=3000 mpi p=8 diag=False rep=1 status=ok time=3.1015091669978574
+n=3000 mpi p=10 diag=True rep=1 status=ok time=3.112949625006877
+n=3000 mpi p=8 diag=True rep=2 status=ok time=3.049253332981607
+n=3000 mpi p=4 diag=True rep=2 status=ok time=3.329997708002338
+n=3000 mpi p=1 diag=False rep=2 status=ok time=7.837591083982261
+n=3000 mpi p=2 diag=False rep=2 status=ok time=4.157476958993357
+n=3000 mpi p=4 diag=False rep=2 status=ok time=3.2525592500169296
+n=3000 mpi p=10 diag=True rep=2 status=ok time=3.053639749996364
+n=3000 mpi p=1 diag=True rep=2 status=ok time=7.834432042000117
+n=3000 mpi p=8 diag=False rep=2 status=ok time=2.9493341250054073
+n=3000 mpi p=2 diag=True rep=2 status=ok time=4.079898166994099
+n=3000 mpi p=10 diag=False rep=2 status=ok time=2.9481143330049235
+n=3000 mpi p=8 diag=True rep=3 status=ok time=2.909328125009779
+n=3000 mpi p=10 diag=False rep=3 status=ok time=3.009061417018529
+n=3000 mpi p=2 diag=True rep=3 status=ok time=4.048365124996053
+n=3000 mpi p=1 diag=False rep=3 status=ok time=7.75390833299025
+n=3000 mpi p=2 diag=False rep=3 status=ok time=3.927949333010474
+n=3000 mpi p=10 diag=True rep=3 status=ok time=2.977265207999153
+n=3000 mpi p=1 diag=True rep=3 status=ok time=7.570381334022386
+n=3000 mpi p=4 diag=False rep=3 status=ok time=3.059571624995442
+n=3000 mpi p=4 diag=True rep=3 status=ok time=3.069034541986184
+n=3000 mpi p=8 diag=False rep=3 status=ok time=2.9710764579940587
+n=3000 mpi p=10 diag=True rep=4 status=ok time=3.0538942919811234
+n=3000 mpi p=8 diag=False rep=4 status=ok time=3.1552622499875724
+n=3000 mpi p=8 diag=True rep=4 status=ok time=3.1300422079802956
+n=3000 mpi p=2 diag=True rep=4 status=ok time=3.9698290420055855
+n=3000 mpi p=1 diag=False rep=4 status=ok time=7.552617333014496
+n=3000 mpi p=2 diag=False rep=4 status=ok time=3.9070077080104966
+n=3000 mpi p=4 diag=False rep=4 status=ok time=3.080489874992054
+n=3000 mpi p=10 diag=False rep=4 status=ok time=3.039920417009853
+n=3000 mpi p=4 diag=True rep=4 status=ok time=3.099400999984937
+n=3000 mpi p=1 diag=True rep=4 status=ok time=7.563056458020583
+n=3000 mpi p=10 diag=False rep=5 status=ok time=2.958132499974454
+n=3000 mpi p=1 diag=False rep=5 status=ok time=7.581714375002775
+n=3000 mpi p=2 diag=True rep=5 status=ok time=3.9178242500056513
+n=3000 mpi p=2 diag=False rep=5 status=ok time=3.909907583001768
+n=3000 mpi p=8 diag=True rep=5 status=ok time=2.9345299169945065
+n=3000 mpi p=4 diag=True rep=5 status=ok time=3.1056882920092903
+n=3000 mpi p=10 diag=True rep=5 status=ok time=3.045884916995419
+n=3000 mpi p=4 diag=False rep=5 status=ok time=3.1006087499845307
+n=3000 mpi p=1 diag=True rep=5 status=ok time=7.743563374999212
+n=3000 mpi p=8 diag=False rep=5 status=ok time=2.924138457980007
+n=4000 omp p=1 diag=False rep=0 status=ok time=34.19368445899454
+n=4000 mpi p=1 diag=False rep=0 status=ok time=18.065489458997035
+n=4000 omp p=10 diag=False rep=0 status=ok time=7.148140000004787
+n=4000 mpi p=8 diag=False rep=0 status=ok time=6.744854583987035
+n=4000 seq p=1 diag=False rep=0 status=ok time=17.817934499995317
+n=4000 mpi p=10 diag=False rep=0 status=ok time=6.844925582990982
+n=4000 mpi p=10 diag=False rep=1 status=ok time=6.755936874978943
+n=4000 mpi p=1 diag=False rep=1 status=ok time=18.465322375006508
+n=4000 mpi p=8 diag=False rep=1 status=ok time=6.713376041996526
+n=4000 omp p=1 diag=False rep=1 status=ok time=34.17898891700315
+n=4000 seq p=1 diag=False rep=1 status=ok time=17.851010582991876
+n=4000 omp p=10 diag=False rep=1 status=ok time=7.169822875002865
+n=4000 mpi p=8 diag=False rep=2 status=ok time=6.833526625006925
+n=4000 omp p=1 diag=False rep=2 status=ok time=34.16485158301657
+n=4000 seq p=1 diag=False rep=2 status=ok time=17.864097582991235
+n=4000 mpi p=10 diag=False rep=2 status=ok time=7.303527000010945
+n=4000 mpi p=1 diag=False rep=2 status=ok time=18.311422625003615
+n=4000 omp p=10 diag=False rep=2 status=ok time=7.24479929197696
+n=4000 mpi p=8 diag=False rep=3 status=ok time=6.838706332986476
+n=4000 seq p=1 diag=False rep=3 status=ok time=17.87199908401817
+n=4000 mpi p=1 diag=False rep=3 status=ok time=19.2716532080085
+n=4000 mpi p=10 diag=False rep=3 status=ok time=7.566562332998728
+n=4000 omp p=1 diag=False rep=3 status=ok time=34.08483058298589
+n=4000 omp p=10 diag=False rep=3 status=ok time=7.812777625018498
+n=4000 omp p=10 diag=False rep=4 status=ok time=7.505293166992487
+n=4000 mpi p=1 diag=False rep=4 status=ok time=17.822152666019974
+n=4000 seq p=1 diag=False rep=4 status=ok time=17.664266375009902
+n=4000 mpi p=10 diag=False rep=4 status=ok time=6.806625166995218
+n=4000 omp p=1 diag=False rep=4 status=ok time=34.133901291992515
+n=4000 mpi p=8 diag=False rep=4 status=ok time=6.712485791998915
+n=4000 seq p=1 diag=False rep=5 status=ok time=17.956261040992104
+n=4000 mpi p=10 diag=False rep=5 status=ok time=8.197281624976313
+n=4000 mpi p=8 diag=False rep=5 status=ok time=8.094176458020229
+n=4000 omp p=1 diag=False rep=5 status=ok time=34.19624124999973
+n=4000 omp p=10 diag=False rep=5 status=ok time=7.11491995799588
+n=4000 mpi p=1 diag=False rep=5 status=ok time=17.823875374975614
+
+=== MPI DIAGNOSTICS ===
+
+Configuration: (3000, 'mpi', 1, 0)
+Measurements: 5
+  compute_s: 7.578214
+  operation_s: 7.598166
+  end_to_end_s: 7.753908
+  gather_s: 0.008345
+  rss_sum_bytes: 372.42 MB
+
+Configuration: (3000, 'mpi', 1, 1)
+Measurements: 5
+  compute_s: 7.545823
+  operation_s: 7.563805
+  end_to_end_s: 7.743563
+  gather_s: 0.009017
+  compute_min_s: 7.545823
+  compute_mean_s: 7.545823
+  compute_max_s: 7.545823
+  wait_max_s: 0.000001
+  gather_sync_s: 0.009017
+  imbalance_ratio: 1.000000
+  rss_sum_bytes: 372.44 MB
+
+Configuration: (3000, 'mpi', 2, 0)
+Measurements: 5
+  compute_s: 3.728796
+  operation_s: 3.757542
+  end_to_end_s: 3.927949
+  gather_s: 0.013786
+  rss_sum_bytes: 458.29 MB
+
+Configuration: (3000, 'mpi', 2, 1)
+Measurements: 5
+  compute_s: 3.855695
+  operation_s: 3.883345
+  end_to_end_s: 4.048365
+  gather_s: 0.009982
+  compute_min_s: 3.851608
+  compute_mean_s: 3.853651
+  compute_max_s: 3.855695
+  wait_max_s: 0.004110
+  gather_sync_s: 0.009982
+  imbalance_ratio: 1.000530
+  rss_sum_bytes: 458.39 MB
+
+Configuration: (3000, 'mpi', 4, 0)
+Measurements: 5
+  compute_s: 2.884102
+  operation_s: 2.924484
+  end_to_end_s: 3.100609
+  gather_s: 0.031914
+  rss_sum_bytes: 629.82 MB
+
+Configuration: (3000, 'mpi', 4, 1)
+Measurements: 5
+  compute_s: 2.882323
+  operation_s: 2.926770
+  end_to_end_s: 3.105688
+  gather_s: 0.012522
+  compute_min_s: 2.841335
+  compute_mean_s: 2.860866
+  compute_max_s: 2.882323
+  wait_max_s: 0.037830
+  gather_sync_s: 0.012522
+  imbalance_ratio: 1.006615
+  rss_sum_bytes: 629.95 MB
+
+Configuration: (3000, 'mpi', 8, 0)
+Measurements: 5
+  compute_s: 2.713825
+  operation_s: 2.768917
+  end_to_end_s: 2.971076
+  gather_s: 0.097248
+  rss_sum_bytes: 978.42 MB
+
+Configuration: (3000, 'mpi', 8, 1)
+Measurements: 5
+  compute_s: 2.764103
+  operation_s: 2.833428
+  end_to_end_s: 3.049253
+  gather_s: 0.020140
+  compute_min_s: 2.617729
+  compute_mean_s: 2.702377
+  compute_max_s: 2.764103
+  wait_max_s: 0.165115
+  gather_sync_s: 0.020140
+  imbalance_ratio: 1.021724
+  rss_sum_bytes: 978.68 MB
+
+Configuration: (3000, 'mpi', 10, 0)
+Measurements: 5
+  compute_s: 2.708513
+  operation_s: 2.786855
+  end_to_end_s: 3.009061
+  gather_s: 0.184680
+  rss_sum_bytes: 1153.19 MB
+
+Configuration: (3000, 'mpi', 10, 1)
+Measurements: 5
+  compute_s: 2.714186
+  operation_s: 2.806364
+  end_to_end_s: 3.053640
+  gather_s: 0.032166
+  compute_min_s: 2.557963
+  compute_mean_s: 2.623176
+  compute_max_s: 2.714186
+  wait_max_s: 0.174399
+  gather_sync_s: 0.032166
+  imbalance_ratio: 1.031924
+  rss_sum_bytes: 1153.16 MB
+
+=== SIZE EXTENSION ===
+
+Configuration: (4000, 'mpi', 1, 0)
+Measurements: 5
+  compute_s: 18.071973
+  operation_s: 18.098178
+  end_to_end_s: 18.311423
+  gather_s: 0.012736
+  rss_sum_bytes: 652.44 MB
+
+Configuration: (4000, 'mpi', 8, 0)
+Measurements: 5
+  compute_s: 6.456643
+  operation_s: 6.558082
+  end_to_end_s: 6.833527
+  gather_s: 0.188901
+  rss_sum_bytes: 1650.38 MB
+
+Configuration: (4000, 'mpi', 10, 0)
+Measurements: 5
+  compute_s: 6.842991
+  operation_s: 7.014436
+  end_to_end_s: 7.303527
+  gather_s: 0.281030
+  rss_sum_bytes: 1881.98 MB
+
+Configuration: (4000, 'omp', 1, 0)
+Measurements: 5
+  compute_s: 34.049041
+  operation_s: 34.049041
+  end_to_end_s: 34.164852
+  rss_sum_bytes: 385.86 MB
+
+Configuration: (4000, 'omp', 10, 0)
+Measurements: 5
+  compute_s: 7.137681
+  operation_s: 7.137681
+  end_to_end_s: 7.244799
+  rss_sum_bytes: 386.25 MB
+
+Configuration: (4000, 'seq', 1, 0)
+Measurements: 5
+  compute_s: 17.752043
+  operation_s: 17.752043
+  end_to_end_s: 17.864098
+  rss_sum_bytes: 385.53 MB
